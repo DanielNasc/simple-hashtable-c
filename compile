@@ -1,0 +1,9 @@
+#!/bin/bash
+
+for file in $(ls *.c); do
+    gcc -c $file -o ${file%.*}.o
+done
+
+gcc $(ls *.o) -o program.out
+
+rm *.o
