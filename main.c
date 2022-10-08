@@ -18,5 +18,7 @@ int main()
     if (!pow)
         printf("pow -> NULL\n");
 
+    removeNode(hashtableDjb2, "teste");
+
     return 0;
 }

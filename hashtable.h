@@ -10,3 +10,4 @@ Hashtable *initializeHashtable(
 
 void insert(Hashtable *hashtable, string key, string value);
 string search(Hashtable *hashtable, string key);
+void removeNode(Hashtable *hashtable, string key);
