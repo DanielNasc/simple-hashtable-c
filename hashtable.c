@@ -41,7 +41,7 @@ Hashtable *initializeHashtable(
     return newHashtable;
 }
 
-void insert(Hashtable *hashtable, string key, string value)
+uint8_t insert(Hashtable *hashtable, string key, string value)
 {
     const unsigned int index = hashtable->hashFunction(key);
     Node *node = hashtable->list[index];
@@ -56,8 +56,7 @@ void insert(Hashtable *hashtable, string key, string value)
         {
             if (strcmp(node->key, key) == 0)
             {
-                printf("key \"%s\" already exists\n", key);
-                return;
+                return 1;
             }
 
             if (node->next == NULL)
@@ -69,6 +68,8 @@ void insert(Hashtable *hashtable, string key, string value)
             node = node->next;
         }
     }
+
+    return 0;
 }
 
 string search(Hashtable *hashtable, string key)
@@ -90,17 +91,14 @@ string search(Hashtable *hashtable, string key)
     return NULL;
 }
 
-void removeNode(Hashtable *hashtable, string key)
+uint8_t removeNode(Hashtable *hashtable, string key)
 {
     const unsigned int index = hashtable->hashFunction(key);
     Node *node = hashtable->list[index],
          *aux = NULL;
 
     if (node == NULL)
-    {
-        printf("there is no node with this key.\n");
-        return;
-    }
+        return 1;
 
     while (node)
     {
@@ -112,13 +110,35 @@ void removeNode(Hashtable *hashtable, string key)
                 hashtable->list[index] = node->next;
 
             free(node);
-            printf("the node with the key \"%s\" has been removed.\n", key);
-            return;
+            return 0;
         }
 
         aux = node;
         node = node->next;
     }
 
-    printf("there is no node with this key.\n");
+    return 1;
+}
+
+void printall(Hashtable *hashtable)
+{
+    if (hashtable == NULL)
+        return;
+
+    printf("\n");
+    for (int i = 0; i < HASHTABLE_SIZE; i++)
+    {
+        if (hashtable->list[i] == NULL)
+            continue;
+
+        Node *node = hashtable->list[i];
+
+        printf("[%d] >>> ", i);
+        while (node)
+        {
+            printf("[ %s: %s ] -> ", node->key, node->value);
+            node = node->next;
+        }
+        printf("NULL\n");
+    }
 }
