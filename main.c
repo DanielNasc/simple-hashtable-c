@@ -53,22 +53,24 @@ int main()
 
             uint8_t result_insert = insert(hashtable, key, value);
             if (result_insert == 1)
-                printf("key \"%s\" already exists\n", key);
+                printf("Key \"%s\" already exists\n", key);
             else
-                printf("the node has been inserted\n");
+                printf("The node has been inserted\n");
             break;
         case 2:
             key = get_str(20, "key");
             string result_search = search(hashtable, key);
-            result_search ? printf("value: %s\n", result_search) : printf("there is no node with this key.\n");
+            result_search ? printf("Value: %s\n", result_search) : printf("There is no node with this key.\n");
+            break;
         case 3:
             key = get_str(20, "key");
 
             uint8_t result_rm = removeNode(hashtable, key);
             if (result_rm == 0)
-                printf("the node has been removed.\n");
+                printf("The node has been removed.\n");
             else
-                printf("there is no node with key \"%s\"", key);
+                printf("There is no node with key \"%s\"\n", key);
+            break;
         case 4:
             printall(hashtable);
             break;
