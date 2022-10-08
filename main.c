@@ -8,9 +8,12 @@ string get_str(unsigned int size, string label)
 {
     if (size == 0)
         return NULL;
+    int c;
+    while ((c = getchar()) != '\n' && c != EOF)
+        ;
     string new_str = (string)malloc(sizeof(char) * size);
     printf("Provide a %s (max len: %d) >> ", label, size);
-    scanf("%s", new_str);
+    scanf("%[^\n]s", new_str);
     return new_str;
 }
 
